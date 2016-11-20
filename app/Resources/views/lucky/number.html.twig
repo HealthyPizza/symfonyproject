@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+
+{% block list %}
+<h1>What's new ?</h1>
+
+{% for article in articles %}
+<div class="card horizontal">
+	<div class="card-image">
+		<img src="{{ asset('img/' ~ article.id ~ '.jpg')}}">
+	</div>
+	<div class="card-stacked">
+		<div class="card-content">
+			<h5>{{article.title}}</h5>
+			  <span class="new badge grey" style="position: inherit;" data-badge-caption="" >{{article.date|date("d/m/Y H:i")}}</span><br/>
+			<p>{{ article.content[:200] ~ '...' }}</p>
+		</div>
+		<div class="card-action">
+			<a href="#">This is a link</a>
+		</div>
+	</div>
+</div>
+{% endfor %}
+{% endblock %}
+
+{% block aside %}
+<img class="responsive-img" src="https://img.buzzfeed.com/buzzfeed-static/static/2014-06/17/0/enhanced/webdr04/enhanced-buzz-11439-1402978882-4.jpg">
+
+<img class="responsive-img" src="https://img.buzzfeed.com/buzzfeed-static/static/2014-06/17/0/enhanced/webdr05/enhanced-buzz-21511-1402979203-4.jpg">
+
+<img class="responsive-img" src="https://img.buzzfeed.com/buzzfeed-static/static/2014-06/17/0/enhanced/webdr05/enhanced-buzz-21511-1402979203-4.jpg">
+{% endblock %}
+
+
