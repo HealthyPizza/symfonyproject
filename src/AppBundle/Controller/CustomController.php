@@ -12,24 +12,18 @@ class CustomController extends Controller
 {
 	
 	/**
-     * @Route("/lucky/{value}", name="blog_show",requirements={"value": "\d+"})
+     * @Route("/", name="blog_show")
      */
-    public function showAction(Request $request,$value=100)
+    public function showAction(Request $request)
     {
-        $number = mt_rand(0, $value);
 		$session = $request->getSession();
-		$login='';
 		$loged=false;
-		if($session->has('login')){
-			$login=$session->get('login');
-			$loged=true;
-		}
 		$repository = $this->getDoctrine()->getRepository('AppBundle:Article');
 		$products = $repository->findAll();
 		
 		
 		 return $this->render('lucky/number.html.twig', array(
-            'number' => $number, 'login' => $login,'loged' => $loged,'articles' => $products,
+            'articles' => $products,
         ));
     }
 	
