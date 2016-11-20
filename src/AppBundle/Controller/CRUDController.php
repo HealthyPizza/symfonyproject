@@ -23,8 +23,18 @@ class CRUDController extends Controller
      */
     public function postAction(Request $request, $slug)
     {
-        // TODO
-        return $this->redirectToRoute('blog_show');
+        $repository = $this->getDoctrine()->getRepository('AppBundle:Article');
+        $article = $repository->find($slug);
+        if($article != null)
+        {
+            return $this->render('crud/read.html.twig', array(
+                'article' => $article
+            ));
+        }
+        else
+        {
+            return $this->render('crud/no_post.html.twig', array());
+        }
     }
     
     /**
