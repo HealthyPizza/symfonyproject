@@ -22,7 +22,7 @@ class CustomController extends Controller
 		$products = $repository->findAll();
 		
 		
-		 return $this->render('lucky/number.html.twig', array(
+		 return $this->render('posts/number.html.twig', array(
             'articles' => $products,
         ));
     }
