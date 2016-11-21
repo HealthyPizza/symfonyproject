@@ -1,0 +1,28 @@
+{% extends 'posts/number_base.html.twig' %}
+
+
+{% block list %}
+<h1>What's new ?</h1>
+
+{% for article in articles %}
+<div class="card horizontal">
+	<div class="card-image">
+		<img src="{{ asset('img/' ~ article.id ~ '.jpg')}}">
+	</div>
+	<div class="card-stacked">
+		<div class="card-content">
+			<h5>{{article.title}}</h5>
+			  <span class="new badge grey" style="position: inherit;" data-badge-caption="" >{{article.date|date("d/m/Y H:i")}}</span><br/>
+			<p>{{ article.content[:200] ~ '...' }}</p>
+		</div>
+		<div class="card-action">
+			<a href="{{ path('post_read', {'slug': article.id, 'dummy' : 'lel'}) }}">This is a link</a>
+		</div>
+	</div>
+</div>
+{% endfor %}
+{% endblock %}
+
+
+
+
