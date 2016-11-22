@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block list %}
+{% block body %}
 
 <!DOCTYPE html>
         {% if app.request.hasPreviousSession %}
@@ -12,9 +12,13 @@
                 {% endfor %}
             {% endfor %}
         {% endif %}
+	<h3 class="center-align">Connexion</h3>
+        <div class="row">
 
-        <div>
-            {% block fos_user_content %}
-            {% endblock fos_user_content %}
+		 <div class="col s6 offset-s3 white z-depth-1">
+			<h6 class="grey-text">Veuillez entrer vos informations de connexion.</h3>
+            		{% block fos_user_content %}
+            		{% endblock fos_user_content %}
+		</div>
         </div>
-{% endblock list %}
+{% endblock body %}
