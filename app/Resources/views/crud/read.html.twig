@@ -1,7 +1,7 @@
-{% extends 'posts/number_base.html.twig' %}
+{% extends 'posts/post_base.html.twig' %}
 
 {% block list %}
     <h2 class="hide-on-small-only">{{article.title}}</h2>
     <h4 class="hide-on-med-and-up">{{article.title}}</h4>
-    <p>{{article.content}}</p>
+    <p>{{article.content|raw}}</p>
 {% endblock %}

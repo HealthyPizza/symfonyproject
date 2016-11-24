@@ -16,21 +16,18 @@ class CustomController extends Controller
      */
     public function showAction(Request $request)
     {
-		$session = $request->getSession();
-		$loged=false;
 		$repository = $this->getDoctrine()->getRepository('AppBundle:Article');
-		$products = $repository->findAll();
-		
-		
-		 return $this->render('posts/number.html.twig', array(
-            'articles' => $products,
+		$articles = $repository->findBy(array(),array('date' => 'DESC'));
+        $articles =array_slice($articles,0,2);
+        return $this->render('posts/post_list.html.twig', array(
+            'articles' => $articles, 'nextpage' => true, 'page' => 1,
         ));
     }
 	
 	/**
      * @Route("/lucky/{slug}", name="blog_slug")
      */
-    public function slugAction(Request $request,$slug)
+    /*public function slugAction(Request $request,$slug)
     {
 		$session = $request->getSession();
 		$session->remove('login');
@@ -48,8 +45,24 @@ Divers témoignages de personnes présentes au moment des faits affirment qu’a
     	$em->flush();
         return $this->redirectToRoute('blog_show');
         
-    }
+    }*/
 	
+    /**
+     * @Route("/pages/{numPage}", name="blog_page", requirements={"numPage": "\d+"})
+     */
+    public function slugAction(Request $request,$numPage)
+    {
+        if($numPage==1)
+             return $this->redirectToRoute('blog_show');
+        
+        $repository = $this->getDoctrine()->getRepository('AppBundle:Article');
+		$articles = $repository->findBy(array(),array('date' => 'DESC'));
+        $articles =array_slice($articles,$numPage*2-2,2);
+        return $this->render('posts/post_list.html.twig', array(
+            'articles' => $articles, 'page' => $numPage,
+        ));
+    }
+    
 	 /**
      * @Route("/{url}", name="remove_trailing_slash",
      *     requirements={"url" = ".*\/$"}, methods={"GET"})
