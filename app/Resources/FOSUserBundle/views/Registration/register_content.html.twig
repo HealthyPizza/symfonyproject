@@ -2,7 +2,7 @@
 
 {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
     {{ form_widget(form) }}
-    <div>
-        <input class="btn waves-effect waves-light" type="submit" value="{{ 'registration.submit'|trans }}" />
+    <div class="row center-align">
+        <input style="width:90%;" class="blue btn waves-effect waves-light" type="submit" value="{{ 'registration.submit'|trans }}" />
     </div>
     {{ form_end(form) }}

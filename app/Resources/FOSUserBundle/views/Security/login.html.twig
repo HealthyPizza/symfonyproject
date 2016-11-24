@@ -1,5 +1,12 @@
 {% extends "FOSUserBundle::layout.html.twig" %}
 
+
+{% block fos_header %}
+            <i class="material-icons large">perm_identity</i>
+            <h3 class="center-align">Connexion</h3>
+{% endblock fos_header %}
+
 {% block fos_user_content %}
+    <h6 class="grey-text">Veuillez entrer vos informations de connexion.</h6>
     {{ include('FOSUserBundle:Security:login_content.html.twig') }}
 {% endblock fos_user_content %}

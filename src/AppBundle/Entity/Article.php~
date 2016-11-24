@@ -17,12 +17,17 @@ class Article
 	private $id;
 	
 	/**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=100)
      */
     private $title;
+    
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $slug;
 	
 	/**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=3000)
      */
     private $content;
 	
@@ -30,4 +35,10 @@ class Article
      * @ORM\Column(type="datetime")
      */
     private $date;
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
 }

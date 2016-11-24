@@ -2,6 +2,11 @@
 
 {% trans_default_domain 'FOSUserBundle' %}
 
+{% block fos_header %}
+            <i class="material-icons large">check_circle</i>
+            <h3 class="center-align">Creation complete</h3>
+{% endblock fos_header %}
+
 {% block fos_user_content %}
     <p>{{ 'registration.confirmed'|trans({'%username%': user.username}) }}</p>
     {% if targetUrl %}

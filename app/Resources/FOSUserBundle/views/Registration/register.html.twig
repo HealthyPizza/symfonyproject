@@ -1,5 +1,10 @@
 {% extends "FOSUserBundle::layout.html.twig" %}
 
+{% block fos_header %}
+            <i class="material-icons large">create</i>
+            <h3 class="center-align">Inscription</h3>
+{% endblock fos_header %}
+
 {% block fos_user_content %}
 {% include "FOSUserBundle:Registration:register_content.html.twig" %}
 {% endblock fos_user_content %}

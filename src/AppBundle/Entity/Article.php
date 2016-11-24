@@ -20,6 +20,11 @@ class Article
      * @ORM\Column(type="string", length=100)
      */
     private $title;
+    
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $slug;
 	
 	/**
      * @ORM\Column(type="string", length=3000)
@@ -30,6 +35,12 @@ class Article
      * @ORM\Column(type="datetime")
      */
     private $date;
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
 
     /**
      * Get id
@@ -51,6 +62,9 @@ class Article
     public function setTitle($title)
     {
         $this->title = $title;
+        $this->slug=$title;
+        preg_replace('/[^\p{Latin}\d ]/u', '-', $this->slug);
+        $this->slug=str_replace(" ", "-", $this->slug);
 
         return $this;
     }
@@ -63,6 +77,30 @@ class Article
     public function getTitle()
     {
         return $this->title;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return Article
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 
     /**

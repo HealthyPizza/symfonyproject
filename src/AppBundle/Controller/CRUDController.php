@@ -24,7 +24,7 @@ class CRUDController extends Controller
     public function postAction(Request $request, $slug)
     {
         $repository = $this->getDoctrine()->getRepository('AppBundle:Article');
-        $article = $repository->find($slug);
+        $article = $repository->findOneBySlug($slug);
         if($article != null)
         {
             return $this->render('crud/read.html.twig', array(
