@@ -18,7 +18,7 @@ class CustomController extends Controller
     {
 		$repository = $this->getDoctrine()->getRepository('AppBundle:Article');
 		$articles = $repository->findBy(array(),array('date' => 'DESC'));
-        $articles =array_slice($articles,0,2);
+        $articles =array_slice($articles,0,5);
         return $this->render('posts/post_list.html.twig', array(
             'articles' => $articles, 'nextpage' => true, 'page' => 1,
         ));
@@ -57,7 +57,7 @@ Divers témoignages de personnes présentes au moment des faits affirment qu’a
         
         $repository = $this->getDoctrine()->getRepository('AppBundle:Article');
 		$articles = $repository->findBy(array(),array('date' => 'DESC'));
-        $articles =array_slice($articles,$numPage*2-2,2);
+        $articles =array_slice($articles,$numPage*5-2,5);
         return $this->render('posts/post_list.html.twig', array(
             'articles' => $articles, 'page' => $numPage,
         ));

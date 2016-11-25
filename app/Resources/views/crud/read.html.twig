@@ -1,17 +1,22 @@
 {% extends 'posts/post_base.html.twig' %}
 
-{% block list %}     
-    <h2 class="hide-on-small-only">{{article.title}}</h2>
-    <h4 class="hide-on-med-and-up">{{article.title}}</h4>
-    <p>{{article.content|raw}}</p>
+{% block list %}
+    <header><h2>{{article.title}}</h2></header>
+
+    <article class="card">
+        <div class="card-content">
+            <p>{{article.content|raw}}</p>
+        </div>
+
+</article>
 {% endblock %}
 
 {% block aside %}     
- {% if is_granted('ROLE_ADMIN') %}
-    <div class="collection">
-        <a href="#!" class="collection-item">Editer</a>
-        <a href="#!" class="collection-item red-text">Supprimer</a>
-    </div>
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="collection">
+            <a href="#!" class="collection-item">Editer</a>
+            <a href="{{path('post_delete', {'slug': article.slug})}}" class="collection-item red-text">Supprimer</a>
+</div>
     {% endif %}
     {{ parent() }}
 {% endblock %}

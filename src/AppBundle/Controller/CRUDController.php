@@ -43,15 +43,23 @@ class CRUDController extends Controller
     public function editAction(Request $request, $slug)
     {
         // TODO
+       
         return $this->redirectToRoute('blog_show');
     }
     
     /**
-     * @Route("post/{slug/delete", name="post_delete")
+     * @Route("post/{slug}/delete", name="post_delete")
      */
     public function deleteAction(Request $request, $slug)
     {
-        // TODO
+        $manager = $this->getDoctrine()->getManager();
+        $repository = $this->getDoctrine()->getRepository('AppBundle:Article');
+        $article = $repository->findOneBySlug($slug);
+        if($article != null)
+        {
+            $manager->remove($article);
+            $manager->flush();
+        }        
         return $this->redirectToRoute('blog_show');
     }
 }
