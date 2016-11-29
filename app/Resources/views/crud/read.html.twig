@@ -13,11 +13,25 @@
 
 {% block aside %}     
     {% if is_granted('ROLE_ADMIN') %}
-        <div class="collection">
+        <div class="collection" id="art_panel">
             <a href="#!" class="collection-item">Editer</a>
-            <a href="{{path('post_delete', {'slug': article.slug})}}" class="collection-item red-text">Supprimer</a>
+            <a id="art_delete" href="#modal1" class="collection-item red-text">Supprimer</a>
 </div>
+<div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4>Attention !</h4>
+      <p>Voulez vous vraiment supprimer l'article ?</p>
+    </div>
+    <div class="modal-footer">
+      <a href="{{path('post_delete', {'slug': article.slug})}}" class=" modal-action modal-close waves-effect waves-green btn-flat">Oui</a>
+      <a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">Non</a>
+    </div>
+  </div>
     {% endif %}
     {{ parent() }}
 {% endblock %}
 
+ {% block javascripts %}
+ 			{{ parent() }}
+            <script src="{{ asset('js/admin_panel.js') }}"></script>
+ {% endblock %}
