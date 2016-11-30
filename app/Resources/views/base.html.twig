@@ -25,10 +25,9 @@
                     {% endif %}
                 </ul>
                 <ul class="side-nav" id="mobile-demo">
-                    <li><a href="sass.html">Sass</a></li>
-                    <li><a href="badges.html">Components</a></li>
+                    <li><a href="{{ path('blog_show') }}">Accueil</a></li>
                     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                        <li><a href="collapsible.html">{{app.user.username}}</a></li>
+                        <li><a href="#">{{app.user.username}}</a></li>
                         <li> <a href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></li>
                     {% else %}
                         <li> <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a></li>
