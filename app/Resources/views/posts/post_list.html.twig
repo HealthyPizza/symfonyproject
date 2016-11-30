@@ -6,13 +6,13 @@
 {% for article in articles %}
 <div class="card horizontal">
 	<div class="card-image">
-		<img src="{{ asset('img/' ~ article.id ~ '.jpg')}}">
+		<img src="{{ asset('img/news.png')}}">
 	</div>
 	<div class="card-stacked">
 		<article class="card-content">
 			<h5>{{article.title}}</h5>
 			  <span class="new badge grey" style="position: inherit;" data-badge-caption="" >{{article.date|date("d/m/Y H:i")}}</span>
-            <span class="new badge grey" style="position: relative;left:10px;" data-badge-caption="" >{{article.date|date("d/m/Y H:i")}}</span>
+            <span class="new badge grey" style="position: relative;left:10px;" data-badge-caption="" >{{'# vues'}}</span>
             <br/>
 			<p>{{ article.content[:200]|striptags ~ '...' }}</p>
 		</article>
@@ -25,7 +25,10 @@
   <div class="center-align">
   <ul class="pagination">
     {% for i in page-2..page+2 %}
-        {% if i >=1 %}
+        {% if i >=1 and i<=page %}
+            <li class="blue active"><a href="{{path('blog_page', {'numPage': i})}}">{{i}}</a></li>
+        {% endif %}
+        {% if nextpage==true and i>page %}
             <li class="blue active"><a href="{{path('blog_page', {'numPage': i})}}">{{i}}</a></li>
         {% endif %}
     {% endfor %}
