@@ -5,17 +5,54 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use AppBundle\Entity\Article;
 
 class CRUDController extends Controller
 {
+    private function createArticleForm(Article $article) {
+        // Form creation
+        $form = $this->createFormBuilder($article)
+                ->add('title', TextType::class)
+                ->add('content', CKEditorType::class)
+                ->add('save', SubmitType::class, array('label' => 'Create Post'))
+                ->getForm();
+        $form->handleRequest($request);
+    }
+    
     /**
      * @Route("/post/new", name="post_new")
      */
     public function newAction(Request $request)
     {
-        // TODO
-        return $this->redirectToRoute('blog_show');
+        // see IvoryCKEditorBundle for WYSIWYG editor
+        $article = new Article();
+        $article->setTitle('Blog title');
+        $article->setContent('Content');
+        
+        // Form creation
+        $this->createArticleForm($article);
+        $form->handleRequest($request);
+        
+        // Form submittion handling
+        if ($form->isSubmitted() && $form->isValid()) {
+            $article = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($article);
+            $em->flush();
+            
+            // Redirect to post page
+            return $this->redirectToRoute('post_read', array(
+                'slug' => $article->getSlug(),
+            ));
+        }
+        
+        return $this->render('crud/create.html.twig', array(
+            'form' => $form->createView(),
+        ));
     }
     
     /**
@@ -42,9 +79,30 @@ class CRUDController extends Controller
      */
     public function editAction(Request $request, $slug)
     {
-        // TODO
-       
-        return $this->redirectToRoute('blog_show');
+        $repository = $this->getDoctrine()->getRepository('AppBundle:Article');
+        $article = $repository->findOneBySlug($slug);
+        if($article != null) {
+            $this->createArticleForm($article);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $article = $form->getData();
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($article);
+                $em->flush();
+
+                // Redirect to post page
+                return $this->redirectToRoute('post_read', array(
+                    'slug' => $article->getSlug(),
+                ));
+           }
+           
+           return $this->render('crud/create.html.twig', array(
+             'form' => $form->createView(),
+           ));
+        }
+        else {
+            return $this->render('crud/no_post.html.twig', array());
+        }
     }
     
     /**

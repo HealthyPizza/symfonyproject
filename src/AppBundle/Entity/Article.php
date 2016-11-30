@@ -37,10 +37,11 @@ class Article
     private $date;
 
     /**
-     * Get id
-     *
-     * @return integer
+     * Constructor. Set the date to server date.
      */
+    public function __construct() {
+        $this->setDate(new \DateTime());
+    }
 
     /**
      * Get id

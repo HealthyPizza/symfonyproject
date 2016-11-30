@@ -1,0 +1,15 @@
+{% extends 'posts/post_base.html.twig' %}
+
+{% block list %}
+{{ form_start(form) }}
+{{ form_widget(form) }}
+{{ form_end(form) }}
+{% endblock %}
+
+{% block aside %}     
+
+{% endblock %}
+
+{% block javascripts %}
+   {{ parent() }}
+{% endblock %}
