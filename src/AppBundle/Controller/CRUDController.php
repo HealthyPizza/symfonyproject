@@ -13,14 +13,15 @@ use AppBundle\Entity\Article;
 
 class CRUDController extends Controller
 {
-    private function createArticleForm(Request $request,Article $article) {
+    private function createArticleForm($article) {
         // Form creation
         $form = $this->createFormBuilder($article)
                 ->add('title', TextType::class)
                 ->add('content', CKEditorType::class)
                 ->add('save', SubmitType::class, array('label' => 'Create Post'))
                 ->getForm();
-        $form->handleRequest($request);
+        
+        return $form;
     }
     
     /**
@@ -34,7 +35,7 @@ class CRUDController extends Controller
         $article->setContent('Content');
         
         // Form creation
-        $this->createArticleForm($article);
+        $form = $this->createArticleForm($article);
         $form->handleRequest($request);
         
         // Form submittion handling
@@ -82,7 +83,7 @@ class CRUDController extends Controller
         $repository = $this->getDoctrine()->getRepository('AppBundle:Article');
         $article = $repository->findOneBySlug($slug);
         if($article != null) {
-            $this->createArticleForm($request,$article);
+            $form = $this->createArticleForm($article);
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
                 $article = $form->getData();
