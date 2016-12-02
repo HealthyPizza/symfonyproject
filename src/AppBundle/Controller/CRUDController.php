@@ -13,7 +13,7 @@ use AppBundle\Entity\Article;
 
 class CRUDController extends Controller
 {
-    private function createArticleForm(Article $article) {
+    private function createArticleForm(Request $request,Article $article) {
         // Form creation
         $form = $this->createFormBuilder($article)
                 ->add('title', TextType::class)
@@ -82,7 +82,7 @@ class CRUDController extends Controller
         $repository = $this->getDoctrine()->getRepository('AppBundle:Article');
         $article = $repository->findOneBySlug($slug);
         if($article != null) {
-            $this->createArticleForm($article);
+            $this->createArticleForm($request,$article);
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
                 $article = $form->getData();

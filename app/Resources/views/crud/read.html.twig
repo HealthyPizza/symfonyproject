@@ -14,7 +14,7 @@
 {% block aside %}     
     {% if is_granted('ROLE_ADMIN') %}
         <div class="collection" id="art_panel">
-            <a href="#!" class="collection-item">Editer</a>
+            <a href="{{path('post_edit',{'slug': article.slug})}}" class="collection-item">Editer</a>
             <a id="art_delete" href="#modal1" class="collection-item red-text">Supprimer</a>
 </div>
 <div id="modal1" class="modal">
