@@ -1,15 +1,18 @@
-{% extends 'posts/post_base.html.twig' %}
+{% extends 'base.html.twig' %}
 
-{% block list %}
-{{ form_start(form) }}
-{{ form_widget(form) }}
-{{ form_end(form) }}
+{% block body %}
+    <div class="row ">
+        <section class="col s12 m8 offset-m2">
+            <header><h2>Editer un article</h2></header>
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            {{ form_end(form) }}
+        </section>
+</div>
 {% endblock %}
 
-{% block aside %}     
-
-{% endblock %}
 
 {% block javascripts %}
-   {{ parent() }}
+    {{ parent() }}
+    <script src="{{ asset('js/newpost.js') }}"></script>
 {% endblock %}

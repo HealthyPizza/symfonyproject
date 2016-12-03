@@ -2,45 +2,52 @@
 
 namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ArticleRepository")
  * @ORM\Table(name="article")
  */
 class Article
 {
-	/**
+    /**
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-	private $id;
-	
-	/**
+    private $id;
+
+    /**
      * @ORM\Column(type="string", length=100)
      */
     private $title;
-    
+
     /**
      * @ORM\Column(type="string", length=100)
      */
     private $slug;
-	
-	/**
+
+    /**
      * @ORM\Column(type="string", length=3000)
      */
     private $content;
-	
-	/**
+
+    /**
      * @ORM\Column(type="datetime")
      */
     private $date;
+
+    /**
+    * @ORM\Column(type="string")
+    * @Assert\Choice(choices = {"News", "Test","Games"}, message = "Invalid type.")
+    */
+    private $type;
 
     /**
      * Constructor. Set the date to server date.
      */
     public function __construct() {
         $this->setDate(new \DateTime());
+        $this->type='News';
     }
 
     /**
@@ -113,8 +120,18 @@ class Article
      */
     public function setContent($content)
     {
+        $offset=0;
+        $replacement="<div class='center-align'>";
+        while($offset!==false){
+            $offset=strpos($content,"<img",$offset);
+            if($offset!==false){
+                $content= substr_replace($content ," class='responsive-img'",$offset+4,0);
+                $content= substr_replace($content ,$replacement,$offset,0);
+                $offset=strpos($content,">",$offset+strlen($replacement));
+                $content= substr_replace($content ,"</div>",$offset+1,0);
+            }
+        }
         $this->content = $content;
-
         return $this;
     }
 
@@ -150,5 +167,29 @@ class Article
     public function getDate()
     {
         return $this->date;
+    }
+
+    /**
+     * Set type
+     *
+     * @param string $type
+     *
+     * @return Article
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 }

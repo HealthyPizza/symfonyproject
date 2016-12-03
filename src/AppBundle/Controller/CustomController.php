@@ -17,8 +17,7 @@ class CustomController extends Controller
     public function showAction(Request $request)
     {
         $repository = $this->getDoctrine()->getRepository('AppBundle:Article');
-        $articles = $repository->findBy(array(),array('date' => 'DESC'));
-        $articles =array_slice($articles,0,5);
+        $articles = $repository->getFiveLast();
         return $this->render('posts/post_list.html.twig', array(
             'articles' => $articles, 'nextpage' => true, 'page' => 1,
         ));
@@ -30,19 +29,13 @@ class CustomController extends Controller
     public function slugAction(Request $request,$numPage) //a revoir -surcharge du find -
     {
         $nextpage=false;
-        if($numPage==1)
+        if($numPage<=1)
             return $this->redirectToRoute('blog_show');
 
         $repository = $this->getDoctrine()->getRepository('AppBundle:Article');
-        $articles = $repository->findBy(array(),array('date' => 'DESC'));
-        if(count($articles)<($numPage-1)*5){
-            return $this->redirectToRoute('blog_page', array('numPage' => $numPage-1,));
-        }
-        $articles =array_slice($articles,($numPage-1*5)+1,5);
-        if(count($articles)>5)
-            $nextpage=true;
+        $articles = $repository->getFiveLast($numPage);
         return $this->render('posts/post_list.html.twig', array(
-            'articles' => $articles, 'page' => $numPage,'nextpage' => $nextpage,
+            'articles' => $articles, 'nextpage' => true, 'page' => 1,
         ));
     }
 

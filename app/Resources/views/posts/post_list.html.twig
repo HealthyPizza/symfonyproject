@@ -12,9 +12,9 @@
 		<article class="card-content">
 			<h5>{{article.title}}</h5>
 			  <span class="new badge grey" style="position: inherit;" data-badge-caption="" >{{article.date|date("d/m/Y H:i")}}</span>
-            <span class="new badge grey" style="position: relative;left:10px;" data-badge-caption="" >{{'# vues'}}</span>
+            <span class="new badge grey" style="position: relative;left:10px;" data-badge-caption="" >{{article.type}}</span>
             <br/>
-			<p>{{ article.content[:200]|striptags ~ '...' }}</p>
+			<p>{{ article.content[:210]|striptags|convert_encoding('UTF-8', 'HTML-ENTITIES') ~ '...' }}</p>
 		</article>
 		<div class="card-action">
 			<a href="{{ path('post_read', {'slug': article.slug}) }}">Lire l'article</a>

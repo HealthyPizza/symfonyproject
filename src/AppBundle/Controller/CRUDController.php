@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use AppBundle\Entity\Article;
 
@@ -16,14 +18,19 @@ class CRUDController extends Controller
     private function createArticleForm($article) {
         // Form creation
         $form = $this->createFormBuilder($article)
-                ->add('title', TextType::class)
-                ->add('content', CKEditorType::class)
-                ->add('save', SubmitType::class, array('label' => 'Create Post'))
-                ->getForm();
-        
+            ->add('title', TextType::class, array(
+                 'attr' => array('placeholder' => 'titlePlaceholder' )
+            ))
+            ->add('content', CKEditorType::class)
+            ->add('type', ChoiceType::class,array(
+                'choices'  => array('News' => 'News','Test' => 'Test','Jeux' => 'Games'),
+            ))
+            ->add('save', SubmitType::class, array( 'attr' => array('class' => 'waves-effect waves-light btn' ) ,'label' => 'CreateP'))
+            ->getForm();
+
         return $form;
     }
-    
+
     /**
      * @Route("/post/new", name="post_new")
      */
@@ -31,31 +38,31 @@ class CRUDController extends Controller
     {
         // see IvoryCKEditorBundle for WYSIWYG editor
         $article = new Article();
-        $article->setTitle('Blog title');
-        $article->setContent('Content');
-        
+        //$article->setTitle('Blog title');
+        $article->setContent('Entrez votre article');
+
         // Form creation
         $form = $this->createArticleForm($article);
         $form->handleRequest($request);
-        
+
         // Form submittion handling
         if ($form->isSubmitted() && $form->isValid()) {
             $article = $form->getData();
             $em = $this->getDoctrine()->getManager();
             $em->persist($article);
             $em->flush();
-            
+
             // Redirect to post page
             return $this->redirectToRoute('post_read', array(
                 'slug' => $article->getSlug(),
             ));
         }
-        
+
         return $this->render('crud/create.html.twig', array(
             'form' => $form->createView(),
         ));
     }
-    
+
     /**
      * @Route("/post/{slug}", name="post_read")
      */
@@ -74,7 +81,7 @@ class CRUDController extends Controller
             return $this->render('crud/no_post.html.twig', array());
         }
     }
-    
+
     /**
      * @Route("/post/{slug}/edit", name="post_edit")
      */
@@ -95,17 +102,17 @@ class CRUDController extends Controller
                 return $this->redirectToRoute('post_read', array(
                     'slug' => $article->getSlug(),
                 ));
-           }
-           
-           return $this->render('crud/create.html.twig', array(
-             'form' => $form->createView(),
-           ));
+            }
+
+            return $this->render('crud/create.html.twig', array(
+                'form' => $form->createView(),
+            ));
         }
         else {
             return $this->render('crud/no_post.html.twig', array());
         }
     }
-    
+
     /**
      * @Route("post/{slug}/delete", name="post_delete")
      */
