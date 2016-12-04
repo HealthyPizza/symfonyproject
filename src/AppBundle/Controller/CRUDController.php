@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use AppBundle\Entity\Article;
@@ -23,7 +24,7 @@ class CRUDController extends Controller
             ))
             ->add('content', CKEditorType::class)
             ->add('type', ChoiceType::class,array(
-                'choices'  => array('News' => 'News','Test' => 'Test','Jeux' => 'Games'),
+                'choices'  => array('Guide' => 'Guide','News' => 'News','Test' => 'Test','Jeux' => 'Games'),
             ))
             ->add('save', SubmitType::class, array( 'attr' => array('class' => 'waves-effect waves-light btn' ) ,'label' => 'CreateP'))
             ->getForm();

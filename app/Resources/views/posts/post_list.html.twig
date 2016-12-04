@@ -14,7 +14,7 @@
 			  <span class="new badge grey" style="position: inherit;" data-badge-caption="" >{{article.date|date("d/m/Y H:i")}}</span>
             <span class="new badge grey" style="position: relative;left:10px;" data-badge-caption="" >{{article.type}}</span>
             <br/>
-			<p>{{ article.content[:210]|striptags|convert_encoding('UTF-8', 'HTML-ENTITIES') ~ '...' }}</p>
+			<p>{{ article.content|slice(0,250)|striptags|convert_encoding('UTF-8', 'HTML-ENTITIES')|slice(0, 240) ~ '...' }}</p>
 		</article>
 		<div class="card-action">
 			<a href="{{ path('post_read', {'slug': article.slug}) }}">Lire l'article</a>
@@ -25,10 +25,7 @@
   <div class="center-align">
   <ul class="pagination">
     {% for i in page-2..page+2 %}
-        {% if i >=1 and i<=page %}
-            <li class="blue active"><a href="{{path('blog_page', {'numPage': i})}}">{{i}}</a></li>
-        {% endif %}
-        {% if nextpage==true and i>page %}
+        {% if i >=1 and i<=maxpage+1 %}
             <li class="blue active"><a href="{{path('blog_page', {'numPage': i})}}">{{i}}</a></li>
         {% endif %}
     {% endfor %}

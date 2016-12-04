@@ -38,7 +38,7 @@ class Article
 
     /**
     * @ORM\Column(type="string")
-    * @Assert\Choice(choices = {"News", "Test","Games"}, message = "Invalid type.")
+    * @Assert\Choice(choices = {"News", "Test","Games","Guide"}, message = "Invalid type.")
     */
     private $type;
 

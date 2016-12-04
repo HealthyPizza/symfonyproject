@@ -17,9 +17,9 @@ class CustomController extends Controller
     public function showAction(Request $request)
     {
         $repository = $this->getDoctrine()->getRepository('AppBundle:Article');
-        $articles = $repository->getFiveLast();
+        $articles = $repository->getPage();
         return $this->render('posts/post_list.html.twig', array(
-            'articles' => $articles, 'nextpage' => true, 'page' => 1,
+            'articles' => $articles, 'maxpage' => $repository->getPageCount(), 'page' => 1,
         ));
     }
 
@@ -31,11 +31,13 @@ class CustomController extends Controller
         $nextpage=false;
         if($numPage<=1)
             return $this->redirectToRoute('blog_show');
-
         $repository = $this->getDoctrine()->getRepository('AppBundle:Article');
-        $articles = $repository->getFiveLast($numPage);
+        $articles = $repository->getPage($numPage);
+        if($articles==null)
+            return $this->redirectToRoute('blog_show');
+        
         return $this->render('posts/post_list.html.twig', array(
-            'articles' => $articles, 'nextpage' => true, 'page' => 1,
+            'articles' => $articles, 'maxpage' => $repository->getPageCount(), 'page' => $numPage,
         ));
     }
 
