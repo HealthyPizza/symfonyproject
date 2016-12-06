@@ -33,7 +33,7 @@ class CRUDController extends Controller
     }
 
     /**
-     * @Route("/post/new", name="post_new")
+     * @Route("/post/new", name="NewAction")
      */
     public function newAction(Request $request)
     {
@@ -54,7 +54,7 @@ class CRUDController extends Controller
             $em->flush();
 
             // Redirect to post page
-            return $this->redirectToRoute('post_read', array(
+            return $this->redirectToRoute('PostAction', array(
                 'slug' => $article->getSlug(),
             ));
         }
@@ -65,7 +65,7 @@ class CRUDController extends Controller
     }
 
     /**
-     * @Route("/post/{slug}", name="post_read")
+     * @Route("/post/{slug}", name="PostAction")
      */
     public function postAction(Request $request, $slug)
     {
@@ -84,7 +84,7 @@ class CRUDController extends Controller
     }
 
     /**
-     * @Route("/post/{slug}/edit", name="post_edit")
+     * @Route("/post/{slug}/edit", name="EditAction")
      */
     public function editAction(Request $request, $slug)
     {
@@ -100,7 +100,7 @@ class CRUDController extends Controller
                 $em->flush();
 
                 // Redirect to post page
-                return $this->redirectToRoute('post_read', array(
+                return $this->redirectToRoute('PostAction', array(
                     'slug' => $article->getSlug(),
                 ));
             }
@@ -115,7 +115,7 @@ class CRUDController extends Controller
     }
 
     /**
-     * @Route("post/{slug}/delete", name="post_delete")
+     * @Route("post/{slug}/delete", name="DeleteAction")
      */
     public function deleteAction(Request $request, $slug)
     {
