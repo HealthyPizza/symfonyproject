@@ -120,6 +120,7 @@ class Article
      */
     public function setContent($content)
     {
+        /*force le centrage des images*/
         $offset=0;
         $replacement="<div class='center-align'>";
         while($offset!==false){

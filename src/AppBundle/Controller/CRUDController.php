@@ -37,23 +37,19 @@ class CRUDController extends Controller
      */
     public function newAction(Request $request)
     {
-        // see IvoryCKEditorBundle for WYSIWYG editor
         $article = new Article();
-        //$article->setTitle('Blog title');
         $article->setContent('Entrez votre article');
 
-        // Form creation
         $form = $this->createArticleForm($article);
         $form->handleRequest($request);
 
-        // Form submittion handling
         if ($form->isSubmitted() && $form->isValid()) {
             $article = $form->getData();
             $em = $this->getDoctrine()->getManager();
             $em->persist($article);
             $em->flush();
 
-            // Redirect to post page
+            // Redirection
             return $this->redirectToRoute('PostAction', array(
                 'slug' => $article->getSlug(),
             ));

@@ -6,7 +6,6 @@ use Doctrine\ORM\EntityRepository;
 
 class ArticleRepository extends EntityRepository
 {
-    private $hasNext=true;
     private $pageCount=-1; //dummy value
     
     

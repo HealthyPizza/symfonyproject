@@ -21,6 +21,6 @@ class BlogUser extends BaseUser
     public function __construct()
     {
         parent::__construct();
-        parent::addRole("ROLE_ADMIN");
+        //parent::addRole("ROLE_ADMIN");
     }
 }
