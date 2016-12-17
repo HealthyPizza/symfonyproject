@@ -2,7 +2,7 @@
 
 
 {% block list %}
-<header><h1>Tous les articles</h1></header>
+<header><h1>{{ "All articles"|trans }}</h1></header>
 {% for article in articles %}
 <div class="card horizontal">
 	<div class="card-image">
@@ -17,7 +17,7 @@
 			<p>{{ article.content|slice(0,250)|striptags|convert_encoding('UTF-8', 'HTML-ENTITIES')|slice(0, 240) ~ '...' }}</p>
 		</article>
 		<div class="card-action">
-			<a href="{{ path('PostAction', {'slug': article.slug}) }}">Lire l'article</a>
+			<a href="{{ path('PostAction', {'slug': article.slug}) }}">{{ "Read article"|trans }}</a>
 		</div>
 	</div>
 </div>

@@ -14,17 +14,17 @@
 {% block aside %}     
     {% if is_granted('ROLE_ADMIN') %}
         <div class="collection" id="art_panel">
-            <a href="{{path('EditAction',{'slug': article.slug})}}" class="collection-item">Editer</a>
-            <a id="art_delete" href="#modal1" class="collection-item red-text">Supprimer</a>
+            <a href="{{path('EditAction',{'slug': article.slug})}}" class="collection-item">{{ 'Edit'|trans }}</a>
+            <a id="art_delete" href="#modal1" class="collection-item red-text">{{ 'Delete'|trans }}</a>
 </div>
 <div id="modal1" class="modal">
     <div class="modal-content">
-      <h4>Attention !</h4>
-      <p>Voulez vous vraiment supprimer l'article ?</p>
+      <h4>{{ 'Warning !'|trans }}</h4>
+      <p>{{ 'Are you sure you want to delete this article ?'|trans }}</p>
     </div>
     <div class="modal-footer">
-      <a href="{{path('DeleteAction', {'slug': article.slug})}}" class=" modal-action modal-close waves-effect waves-green btn-flat">Oui</a>
-      <a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">Non</a>
+      <a href="{{path('DeleteAction', {'slug': article.slug})}}" class=" modal-action modal-close waves-effect waves-green btn-flat">{{ 'Yes'|trans }}</a>
+      <a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">{{ 'No'|trans }}</a>
     </div>
   </div>
     {% endif %}

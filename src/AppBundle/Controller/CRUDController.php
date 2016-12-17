@@ -24,7 +24,7 @@ class CRUDController extends Controller
             ))
             ->add('content', CKEditorType::class)
             ->add('type', ChoiceType::class,array(
-                'choices'  => array('Guide' => 'Guide','News' => 'News','Test' => 'Test','Jeux' => 'Games'),
+                'choices'  => array('Guide' => 'Guide','News' => 'News','Test' => 'Test','Games' => 'Games'),
             ))
             ->add('save', SubmitType::class, array( 'attr' => array('class' => 'waves-effect waves-light btn' ) ,'label' => 'CreateP'))
             ->getForm();
@@ -38,7 +38,7 @@ class CRUDController extends Controller
     public function newAction(Request $request)
     {
         $article = new Article();
-        $article->setContent('Entrez votre article');
+        $article->setContent($this->get('translator')->trans('Content'));
 
         $form = $this->createArticleForm($article);
         $form->handleRequest($request);

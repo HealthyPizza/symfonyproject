@@ -15,10 +15,10 @@
                 <a href="{{path("blog_show")}}" class="brand-logo"><span class="red-text">Goat</span>Busters</a>
                 <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a href="{{ path('blog_show') }}">Accueil</a></li>
+                    <li><a href="{{ path('blog_show') }}">{{ "Home"|trans }}</a></li>
                     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                         <li><a href="#">{{app.user.username}}</a></li>
-                        <li><a href="{{path('NewAction')}}">{{"Nouveau post"}}</a></li>
+                        <li><a href="{{path('NewAction')}}">{{"New post"|trans}}</a></li>
                         <li> <a href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></li>
                     {% else %}
                         <li> <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a></li>
