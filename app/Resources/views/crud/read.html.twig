@@ -1,8 +1,8 @@
 {% extends 'posts/post_base.html.twig' %}
+{% block title %}{{article.title}}{% endblock %}
 
 {% block list %}
     <header><h2>{{article.title}}</h2></header>
-
     <article class="card">
         <div class="card-content">
             <p>{{article.content|raw}}</p>
